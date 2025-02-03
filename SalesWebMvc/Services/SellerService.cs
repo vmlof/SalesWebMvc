@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SalesWebMvc.Data;
 using SalesWebMvc.Models;
-using SalesWebMvc.Services.Exeptions;
+using SalesWebMvc.Services.Exceptions;
 
 namespace SalesWebMvc.Services
 {
@@ -36,16 +36,16 @@ namespace SalesWebMvc.Services
         {
             if (!_context.Seller.Any(seller => seller.Id == obj.Id))
             {
-                throw new NotFoundExeption("Id not found");
+                throw new NotFoundException("Id not found");
             }
             try
             {
                 _context.Update(obj);
                 _context.SaveChanges();
             }
-            catch (DbConcurrencyExeption e)
+            catch (DbConcurrencyException e)
             {
-                throw new DbConcurrencyExeption(e.Message);
+                throw new DbConcurrencyException(e.Message);
             }
 
 

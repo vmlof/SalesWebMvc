@@ -2,7 +2,7 @@
 using SalesWebMvc.Models;
 using SalesWebMvc.Models.ViewModels;
 using SalesWebMvc.Services;
-using SalesWebMvc.Services.Exeptions;
+using SalesWebMvc.Services.Exceptions;
 using System.Diagnostics;
 
 namespace SalesWebMvc.Controllers
@@ -27,7 +27,7 @@ namespace SalesWebMvc.Controllers
         public IActionResult Create()
         {
             var departments = _departmentService.FindAll();
-            var viewModel = new SellerFormViewModel { Deparments = departments };
+            var viewModel = new SellerFormViewModel { Departments = departments };
             return View(viewModel);
         }
         [HttpPost]
@@ -37,7 +37,7 @@ namespace SalesWebMvc.Controllers
             if (!ModelState.IsValid)
             {
                 var departments = _departmentService.FindAll();
-                var viewModel = new SellerFormViewModel { Seller = seller, Deparments = departments };
+                var viewModel = new SellerFormViewModel { Seller = seller, Departments = departments };
                 return View(viewModel);
             }
             _sellerService.Insert(seller);
@@ -88,7 +88,7 @@ namespace SalesWebMvc.Controllers
                 return RedirectToAction(nameof(Error), new { Message = "Id not found" });
             }
             List<Department> departments = _departmentService.FindAll();
-            SellerFormViewModel viewModel = new SellerFormViewModel { Seller = obj, Deparments = departments };
+            SellerFormViewModel viewModel = new SellerFormViewModel { Seller = obj, Departments = departments };
             return View(viewModel);
         }
         [HttpPost]
@@ -98,7 +98,7 @@ namespace SalesWebMvc.Controllers
             if (!ModelState.IsValid)
             {
                 var departments = _departmentService.FindAll();
-                var viewModel = new SellerFormViewModel { Seller = seller, Deparments = departments };
+                var viewModel = new SellerFormViewModel { Seller = seller, Departments = departments };
                 return View(viewModel);
             }
             if (id != seller.Id)
